@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from '@modern-js/runtime/router';
-import {
-  Card,
-  Typography,
-  Space,
-  Tag,
-  Button,
-  Divider,
-  Row,
-  Col,
-  Avatar,
-  Statistic,
-  Alert,
-  Breadcrumb,
-} from 'antd';
 import {
   ArrowLeftOutlined,
+  CalendarOutlined,
   EditOutlined,
   EyeOutlined,
-  HeartOutlined,
-  CalendarOutlined,
-  UserOutlined,
   FolderOutlined,
+  HeartOutlined,
   TagsOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
+import { useNavigate, useParams } from '@modern-js/runtime/router';
+import {
+  Alert,
+  Avatar,
+  Breadcrumb,
+  Button,
+  Card,
+  Col,
+  Divider,
+  Row,
+  Space,
+  Statistic,
+  Tag,
+  Typography,
+} from 'antd';
 import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
 import type { BlogPost } from '../../../../types/blog';
 import { blogStorage } from '../../../../utils/storage';
 
@@ -100,10 +100,26 @@ const BlogDetailPage: React.FC = () => {
         <Breadcrumb
           items={[
             {
-              title: <a onClick={() => navigate('/')}>首页</a>,
+              title: (
+                <Button
+                  type="link"
+                  style={{ padding: 0, height: 'auto' }}
+                  onClick={() => navigate('/')}
+                >
+                  首页
+                </Button>
+              ),
             },
             {
-              title: <a onClick={() => navigate('/blog/list')}>博客列表</a>,
+              title: (
+                <Button
+                  type="link"
+                  style={{ padding: 0, height: 'auto' }}
+                  onClick={() => navigate('/blog/list')}
+                >
+                  博客列表
+                </Button>
+              ),
             },
             {
               title: post.title,
@@ -229,13 +245,8 @@ const BlogDetailPage: React.FC = () => {
 
             {/* 文章内容 */}
             <div style={{ fontSize: 16, lineHeight: 1.8 }}>
-              <Paragraph>
-                {post.content.split('\n').map((line, index) => (
-                  <React.Fragment key={index}>
-                    {line}
-                    {index < post.content.split('\n').length - 1 && <br />}
-                  </React.Fragment>
-                ))}
+              <Paragraph style={{ whiteSpace: 'pre-wrap' }}>
+                {post.content}
               </Paragraph>
             </div>
 

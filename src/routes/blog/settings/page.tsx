@@ -1,58 +1,59 @@
-import React, { useState } from 'react';
 import {
-  Tabs,
-  Card,
-  Descriptions,
-  Timeline,
-  Collapse,
-  Modal,
-  Drawer,
-  Button,
-  Space,
-  notification,
-  message,
-  Alert,
-  Result,
-  Spin,
-  Skeleton,
-  Breadcrumb,
-  Avatar,
-  List,
-  Popover,
-  Affix,
-  Anchor,
-  BackTop,
-  Calendar,
-  Tree,
-  Typography,
-  Image,
-  Carousel,
-  Tooltip,
-  FloatButton,
-  QRCode,
-  Watermark,
-  Tour,
-  Segmented,
-} from 'antd';
-import type { TourProps } from 'antd';
-import {
-  SettingOutlined,
-  UserOutlined,
-  BellOutlined,
-  SecurityScanOutlined,
-  HistoryOutlined,
-  NotificationOutlined,
-  QuestionCircleOutlined,
-  HomeOutlined,
   AppstoreOutlined,
   BarChartOutlined,
+  BellOutlined,
   CloudOutlined,
-  TeamOutlined,
   FileTextOutlined,
+  HistoryOutlined,
+  HomeOutlined,
+  NotificationOutlined,
   PlusOutlined,
+  QuestionCircleOutlined,
+  SecurityScanOutlined,
+  SettingOutlined,
+  TeamOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
-import { settingsStorage } from '../../../utils/storage';
+import {
+  Affix,
+  Alert,
+  Anchor,
+  Avatar,
+  BackTop,
+  Breadcrumb,
+  Button,
+  Calendar,
+  Card,
+  Carousel,
+  Collapse,
+  Descriptions,
+  Drawer,
+  FloatButton,
+  Image,
+  List,
+  Modal,
+  Popover,
+  QRCode,
+  Result,
+  Segmented,
+  Skeleton,
+  Space,
+  Spin,
+  Tabs,
+  Timeline,
+  Tooltip,
+  Tour,
+  Tree,
+  Typography,
+  Watermark,
+  message,
+  notification,
+} from 'antd';
+import type { TourProps } from 'antd';
 import dayjs from 'dayjs';
+import type React from 'react';
+import { useState } from 'react';
+import { settingsStorage } from '../../../utils/storage';
 
 const { Title, Paragraph, Text } = Typography;
 const { Panel } = Collapse;
@@ -302,12 +303,10 @@ const BlogSettingsPage: React.FC = () => {
                       { action: '更新设置', time: '2025-01-14 10:20' },
                       { action: '删除文章', time: '2025-01-13 16:45' },
                     ]}
-                    renderItem={(item) => (
+                    renderItem={item => (
                       <List.Item>
                         <List.Item.Meta
-                          avatar={
-                            <Avatar icon={<HistoryOutlined />} />
-                          }
+                          avatar={<Avatar icon={<HistoryOutlined />} />}
                           title={item.action}
                           description={item.time}
                         />
@@ -338,12 +337,13 @@ const BlogSettingsPage: React.FC = () => {
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           <Card title="通知组件演示">
             <Space wrap>
-              <Button onClick={() => openNotification('success')} type="primary">
+              <Button
+                onClick={() => openNotification('success')}
+                type="primary"
+              >
                 成功通知
               </Button>
-              <Button onClick={() => openNotification('info')}>
-                信息通知
-              </Button>
+              <Button onClick={() => openNotification('info')}>信息通知</Button>
               <Button onClick={() => openNotification('warning')}>
                 警告通知
               </Button>
@@ -423,7 +423,9 @@ const BlogSettingsPage: React.FC = () => {
           <Card title="日历组件">
             <Calendar
               fullscreen={false}
-              onSelect={(date) => message.info(`选择了: ${date.format('YYYY-MM-DD')}`)}
+              onSelect={date =>
+                message.info(`选择了: ${date.format('YYYY-MM-DD')}`)
+              }
             />
           </Card>
 
@@ -432,7 +434,7 @@ const BlogSettingsPage: React.FC = () => {
               showIcon
               defaultExpandAll
               treeData={treeData}
-              onSelect={(keys) => message.info(`选中: ${keys.join(', ')}`)}
+              onSelect={keys => message.info(`选中: ${keys.join(', ')}`)}
             />
           </Card>
 
@@ -482,7 +484,7 @@ const BlogSettingsPage: React.FC = () => {
           <List
             itemLayout="horizontal"
             dataSource={listData}
-            renderItem={(item) => (
+            renderItem={item => (
               <List.Item
                 actions={[
                   <Popover content="点击查看详情" key="detail">
@@ -569,7 +571,8 @@ const BlogSettingsPage: React.FC = () => {
               src="https://via.placeholder.com/400x300/1890ff/ffffff?text=Drawer+Content"
             />
             <Paragraph>
-              Drawer 抽屉从父窗体边缘滑入，覆盖住部分父窗体内容。用户在抽屉内操作时不必离开当前任务，操作完成后，可以平滑地回到原任务。
+              Drawer
+              抽屉从父窗体边缘滑入，覆盖住部分父窗体内容。用户在抽屉内操作时不必离开当前任务，操作完成后，可以平滑地回到原任务。
             </Paragraph>
             <List
               size="small"
@@ -578,13 +581,17 @@ const BlogSettingsPage: React.FC = () => {
                 '当需要在当前任务流中插入临时任务',
                 '当需要展示或编辑详细信息',
               ]}
-              renderItem={(item) => <List.Item>{item}</List.Item>}
+              renderItem={item => <List.Item>{item}</List.Item>}
             />
           </Space>
         </Drawer>
 
         {/* Tour */}
-        <Tour open={tourOpen} onClose={() => setTourOpen(false)} steps={tourSteps} />
+        <Tour
+          open={tourOpen}
+          onClose={() => setTourOpen(false)}
+          steps={tourSteps}
+        />
 
         {/* FloatButton */}
         <FloatButton.Group

@@ -1,14 +1,14 @@
-import React from 'react';
-import { Layout, Menu, Switch, Space, Typography } from 'antd';
 import {
-  HomeOutlined,
-  FileTextOutlined,
-  EditOutlined,
-  SettingOutlined,
-  BulbOutlined,
   BulbFilled,
+  BulbOutlined,
+  EditOutlined,
+  FileTextOutlined,
+  HomeOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
-import { useNavigate, useLocation } from '@modern-js/runtime/router';
+import { useLocation, useNavigate } from '@modern-js/runtime/router';
+import { Layout, Menu, Space, Switch, Typography } from 'antd';
+import type React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 
 const { Header: AntHeader } = Layout;
