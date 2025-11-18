@@ -1,45 +1,46 @@
-import React, { useState, useMemo } from 'react';
 import {
-  Table,
-  Card,
-  Tag,
-  Button,
-  Input,
-  Select,
-  Space,
-  Popconfirm,
-  message,
-  Avatar,
-  Tooltip,
-  Typography,
-  Row,
-  Col,
-  Statistic,
-  Progress,
-  Empty,
-  Radio,
-  DatePicker,
-  Segmented,
-  Dropdown,
-  Badge,
-} from 'antd';
-import {
-  EditOutlined,
   DeleteOutlined,
-  EyeOutlined,
-  SearchOutlined,
-  PlusOutlined,
-  HeartOutlined,
-  StarOutlined,
-  FilterOutlined,
   DownloadOutlined,
+  EditOutlined,
+  EyeOutlined,
+  FilterOutlined,
+  HeartOutlined,
+  PlusOutlined,
+  SearchOutlined,
   ShareAltOutlined,
+  StarOutlined,
 } from '@ant-design/icons';
 import { useNavigate } from '@modern-js/runtime/router';
 import { useLocalStorageState } from 'ahooks';
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Dropdown,
+  Empty,
+  Input,
+  Popconfirm,
+  Progress,
+  Radio,
+  Row,
+  Segmented,
+  Select,
+  Space,
+  Statistic,
+  Table,
+  Tag,
+  Tooltip,
+  Typography,
+  message,
+} from 'antd';
+import dayjs from 'dayjs';
+import type React from 'react';
+import { useMemo, useState } from 'react';
 import type { BlogPost } from '../../../types/blog';
 import { blogStorage } from '../../../utils/storage';
-import dayjs from 'dayjs';
 
 const { Search } = Input;
 const { Title, Text, Paragraph } = Typography;
@@ -55,7 +56,9 @@ const BlogListPage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'table' | 'card'>('table');
-  const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs] | null>(null);
+  const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs] | null>(
+    null,
+  );
 
   // 过滤数据
   const filteredPosts = useMemo(() => {
@@ -63,27 +66,29 @@ const BlogListPage: React.FC = () => {
 
     if (searchText) {
       result = result.filter(
-        (post) =>
+        post =>
           post.title.toLowerCase().includes(searchText.toLowerCase()) ||
           post.content.toLowerCase().includes(searchText.toLowerCase()) ||
-          post.tags.some((tag) =>
+          post.tags.some(tag =>
             tag.toLowerCase().includes(searchText.toLowerCase()),
           ),
       );
     }
 
     if (selectedCategory !== 'all') {
-      result = result.filter((post) => post.category === selectedCategory);
+      result = result.filter(post => post.category === selectedCategory);
     }
 
     if (selectedStatus !== 'all') {
-      result = result.filter((post) => post.status === selectedStatus);
+      result = result.filter(post => post.status === selectedStatus);
     }
 
     if (dateRange) {
-      result = result.filter((post) => {
+      result = result.filter(post => {
         const postDate = dayjs(post.createdAt);
-        return postDate.isAfter(dateRange[0]) && postDate.isBefore(dateRange[1]);
+        return (
+          postDate.isAfter(dateRange[0]) && postDate.isBefore(dateRange[1])
+        );
       });
     }
 
@@ -96,7 +101,7 @@ const BlogListPage: React.FC = () => {
     message.success('删除成功');
   };
 
-  const categories = Array.from(new Set(posts?.map((p) => p.category) || []));
+  const categories = Array.from(new Set(posts?.map(p => p.category) || []));
   const totalViews = posts?.reduce((sum, post) => sum + post.views, 0) || 0;
   const totalLikes = posts?.reduce((sum, post) => sum + post.likes, 0) || 0;
 
@@ -121,7 +126,7 @@ const BlogListPage: React.FC = () => {
       render: (text: string, record: BlogPost) => (
         <Space>
           <Avatar style={{ backgroundColor: '#1890ff' }}>
-            {text.charAt(0)}
+            {text?.charAt(0) || '?'}
           </Avatar>
           <div>
             <div>
@@ -154,7 +159,7 @@ const BlogListPage: React.FC = () => {
       width: 200,
       render: (tags: string[]) => (
         <>
-          {tags.map((tag) => (
+          {tags.map(tag => (
             <Tag key={tag} color="cyan">
               {tag}
             </Tag>
@@ -175,6 +180,7 @@ const BlogListPage: React.FC = () => {
       title: '数据',
       key: 'stats',
       width: 150,
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       render: (_: any, record: BlogPost) => (
         <Space direction="vertical" size="small">
           <div>
@@ -191,6 +197,7 @@ const BlogListPage: React.FC = () => {
       key: 'actions',
       width: 200,
       fixed: 'right' as const,
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       render: (_: any, record: BlogPost) => (
         <Space>
           <Tooltip title="查看">
@@ -224,18 +231,18 @@ const BlogListPage: React.FC = () => {
 
   const renderCardView = () => (
     <Row gutter={[16, 16]}>
-      {filteredPosts.map((post) => (
+      {filteredPosts.map(post => (
         <Col xs={24} sm={12} lg={8} key={post.id}>
           <Card
             hoverable
             actions={[
-              <Tooltip title="查看">
+              <Tooltip key="view" title="查看">
                 <EyeOutlined
                   key="view"
                   onClick={() => navigate(`/blog/detail/${post.id}`)}
                 />
               </Tooltip>,
-              <Tooltip title="编辑">
+              <Tooltip key="edit" title="编辑">
                 <EditOutlined
                   key="edit"
                   onClick={() => navigate(`/blog/edit/${post.id}`)}
@@ -253,11 +260,15 @@ const BlogListPage: React.FC = () => {
             <Card.Meta
               avatar={
                 <Avatar style={{ backgroundColor: '#1890ff' }}>
-                  {post.title.charAt(0)}
+                  {post.title?.charAt(0) || '?'}
                 </Avatar>
               }
               title={
-                <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                <Space
+                  direction="vertical"
+                  size="small"
+                  style={{ width: '100%' }}
+                >
                   <Text strong>{post.title}</Text>
                   <Tag color={statusColors[post.status]}>
                     {statusText[post.status]}
@@ -268,7 +279,7 @@ const BlogListPage: React.FC = () => {
                 <Space direction="vertical" style={{ width: '100%' }}>
                   <Paragraph ellipsis={{ rows: 2 }}>{post.summary}</Paragraph>
                   <div>
-                    {post.tags.map((tag) => (
+                    {post.tags.map(tag => (
                       <Tag key={tag} color="cyan" style={{ marginBottom: 4 }}>
                         {tag}
                       </Tag>
@@ -311,27 +322,21 @@ const BlogListPage: React.FC = () => {
                 value={posts?.length || 0}
                 prefix={<FileTextOutlined />}
               />
-              <Progress
-                percent={100}
-                showInfo={false}
-                strokeColor="#1890ff"
-              />
+              <Progress percent={100} showInfo={false} strokeColor="#1890ff" />
             </Card>
           </Col>
           <Col xs={24} sm={12} lg={6}>
             <Card>
               <Statistic
                 title="已发布"
-                value={
-                  posts?.filter((p) => p.status === 'published').length || 0
-                }
+                value={posts?.filter(p => p.status === 'published').length || 0}
                 valueStyle={{ color: '#52c41a' }}
                 prefix={<CheckCircleOutlined />}
               />
               <Progress
                 percent={
                   posts?.length
-                    ? (posts.filter((p) => p.status === 'published').length /
+                    ? (posts.filter(p => p.status === 'published').length /
                         posts.length) *
                       100
                     : 0
@@ -348,11 +353,7 @@ const BlogListPage: React.FC = () => {
                 value={totalViews}
                 prefix={<EyeOutlined />}
               />
-              <Progress
-                percent={100}
-                showInfo={false}
-                strokeColor="#faad14"
-              />
+              <Progress percent={100} showInfo={false} strokeColor="#faad14" />
             </Card>
           </Col>
           <Col xs={24} sm={12} lg={6}>
@@ -363,11 +364,7 @@ const BlogListPage: React.FC = () => {
                 prefix={<HeartOutlined />}
                 valueStyle={{ color: '#eb2f96' }}
               />
-              <Progress
-                percent={100}
-                showInfo={false}
-                strokeColor="#eb2f96"
-              />
+              <Progress percent={100} showInfo={false} strokeColor="#eb2f96" />
             </Card>
           </Col>
         </Row>
@@ -399,7 +396,7 @@ const BlogListPage: React.FC = () => {
                   allowClear
                   enterButton={<SearchOutlined />}
                   onSearch={setSearchText}
-                  onChange={(e) => setSearchText(e.target.value)}
+                  onChange={e => setSearchText(e.target.value)}
                 />
               </Col>
               <Col xs={12} sm={6} lg={4}>
@@ -410,7 +407,7 @@ const BlogListPage: React.FC = () => {
                   onChange={setSelectedCategory}
                 >
                   <Select.Option value="all">全部分类</Select.Option>
-                  {categories.map((cat) => (
+                  {categories.map(cat => (
                     <Select.Option key={cat} value={cat}>
                       {cat}
                     </Select.Option>
@@ -433,7 +430,7 @@ const BlogListPage: React.FC = () => {
               <Col xs={24} sm={12} lg={8}>
                 <RangePicker
                   style={{ width: '100%' }}
-                  onChange={(dates) =>
+                  onChange={dates =>
                     setDateRange(dates as [dayjs.Dayjs, dayjs.Dayjs])
                   }
                 />
@@ -443,10 +440,10 @@ const BlogListPage: React.FC = () => {
             <Row gutter={[16, 16]} align="middle">
               <Col flex="auto">
                 <Space>
-                  <Text type="secondary">视图模式:</Text>
+                  <Text type="secondary">视图模式：</Text>
                   <Segmented
                     value={viewMode}
-                    onChange={(value) => setViewMode(value as 'table' | 'card')}
+                    onChange={value => setViewMode(value as 'table' | 'card')}
                     options={[
                       { label: '表格', value: 'table' },
                       { label: '卡片', value: 'card' },
@@ -462,8 +459,16 @@ const BlogListPage: React.FC = () => {
                   <Dropdown
                     menu={{
                       items: [
-                        { key: 'export', label: '导出数据', icon: <DownloadOutlined /> },
-                        { key: 'share', label: '分享', icon: <ShareAltOutlined /> },
+                        {
+                          key: 'export',
+                          label: '导出数据',
+                          icon: <DownloadOutlined />,
+                        },
+                        {
+                          key: 'share',
+                          label: '分享',
+                          icon: <ShareAltOutlined />,
+                        },
                       ],
                     }}
                   >
@@ -487,7 +492,7 @@ const BlogListPage: React.FC = () => {
                 pageSize: 10,
                 showSizeChanger: true,
                 showQuickJumper: true,
-                showTotal: (total) => `共 ${total} 条`,
+                showTotal: total => `共 ${total} 条`,
               }}
             />
           ) : (
@@ -500,6 +505,6 @@ const BlogListPage: React.FC = () => {
 };
 
 // 补充缺失的图标导入
-import { FileTextOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { CheckCircleOutlined, FileTextOutlined } from '@ant-design/icons';
 
 export default BlogListPage;
