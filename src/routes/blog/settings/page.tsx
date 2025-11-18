@@ -18,7 +18,6 @@ import {
   Breadcrumb,
   Avatar,
   List,
-  Comment,
   Popover,
   Affix,
   Anchor,

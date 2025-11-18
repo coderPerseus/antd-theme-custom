@@ -40,8 +40,8 @@ import {
 } from '@ant-design/icons';
 import { useNavigate, useParams } from '@modern-js/runtime/router';
 import { useLocalStorageState } from 'ahooks';
-import type { BlogPost } from '../../../types/blog';
-import { blogStorage } from '../../../utils/storage';
+import type { BlogPost } from '../../../../types/blog';
+import { blogStorage } from '../../../../utils/storage';
 import dayjs from 'dayjs';
 
 const { TextArea } = Input;
