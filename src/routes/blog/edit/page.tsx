@@ -1,48 +1,49 @@
-import React, { useState, useEffect } from 'react';
 import {
-  Form,
-  Input,
-  Select,
-  DatePicker,
-  Upload,
-  Button,
-  Card,
-  Steps,
-  Space,
-  Row,
-  Col,
-  Divider,
-  message,
-  Radio,
-  Checkbox,
-  Switch,
-  Slider,
-  Rate,
-  ColorPicker,
-  TimePicker,
-  InputNumber,
-  Mentions,
-  AutoComplete,
-  Cascader,
-  TreeSelect,
-  Transfer,
-  Typography,
-  Alert,
-  Progress,
-} from 'antd';
-import {
-  UploadOutlined,
-  InboxOutlined,
-  SaveOutlined,
-  EyeOutlined,
   CloseOutlined,
+  EyeOutlined,
+  InboxOutlined,
   PlusOutlined,
+  SaveOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useParams } from '@modern-js/runtime/router';
 import { useLocalStorageState } from 'ahooks';
+import {
+  Alert,
+  AutoComplete,
+  Button,
+  Card,
+  Cascader,
+  Checkbox,
+  Col,
+  ColorPicker,
+  DatePicker,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  Mentions,
+  Progress,
+  Radio,
+  Rate,
+  Row,
+  Select,
+  Slider,
+  Space,
+  Steps,
+  Switch,
+  TimePicker,
+  Transfer,
+  TreeSelect,
+  Typography,
+  Upload,
+  message,
+} from 'antd';
+import dayjs from 'dayjs';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import type { BlogPost } from '../../../types/blog';
 import { blogStorage } from '../../../utils/storage';
-import dayjs from 'dayjs';
 
 const { TextArea } = Input;
 const { Title, Paragraph } = Typography;
@@ -217,16 +218,14 @@ const BlogEditPage: React.FC = () => {
                   ((formData.title?.length || 0) / 100) * 100,
                   100,
                 )}
-                format={(percent) => `标题: ${formData.title?.length || 0}/100`}
+                format={percent => `标题: ${formData.title?.length || 0}/100`}
               />
               <Progress
                 percent={Math.min(
                   ((formData.summary?.length || 0) / 200) * 100,
                   100,
                 )}
-                format={(percent) =>
-                  `摘要: ${formData.summary?.length || 0}/200`
-                }
+                format={percent => `摘要: ${formData.summary?.length || 0}/200`}
                 strokeColor="#52c41a"
               />
             </Form.Item>
@@ -298,7 +297,7 @@ const BlogEditPage: React.FC = () => {
               <Select
                 size="large"
                 placeholder="选择博客分类"
-                options={categories.map((cat) => ({
+                options={categories.map(cat => ({
                   ...cat,
                   label: `${cat.emoji} ${cat.label}`,
                 }))}
@@ -308,7 +307,7 @@ const BlogEditPage: React.FC = () => {
               <Select
                 mode="tags"
                 placeholder="选择或输入标签"
-                options={tagOptions.map((tag) => ({ value: tag, label: tag }))}
+                options={tagOptions.map(tag => ({ value: tag, label: tag }))}
               />
             </Form.Item>
             <Divider />
@@ -397,18 +396,14 @@ const BlogEditPage: React.FC = () => {
                     min={0}
                     max={100000}
                     style={{ width: '100%' }}
-                    formatter={(value) =>
+                    formatter={value =>
                       `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
                     }
                   />
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Form.Item
-                  label="重要程度"
-                  name="priority"
-                  initialValue={3}
-                >
+                <Form.Item label="重要程度" name="priority" initialValue={3}>
                   <Rate />
                 </Form.Item>
               </Col>
@@ -418,7 +413,7 @@ const BlogEditPage: React.FC = () => {
                 style={{ width: '100%' }}
                 placeholder="输入 SEO 关键词，使用 @ 提及"
                 rows={3}
-                options={tagOptions.map((tag) => ({ value: tag, label: tag }))}
+                options={tagOptions.map(tag => ({ value: tag, label: tag }))}
               />
             </Form.Item>
             <Form.Item label="自动保存" name="autoSave" valuePropName="checked">

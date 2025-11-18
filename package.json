@@ -24,13 +24,19 @@
     "pre-commit": "npx lint-staged"
   },
   "dependencies": {
+    "@ai-sdk/anthropic": "^2.0.45",
+    "@ai-sdk/google": "^2.0.34",
+    "@ai-sdk/openai": "^2.0.68",
     "@ant-design/icons": "^6.1.0",
     "@modern-js/runtime": "2.68.20",
     "ahooks": "^3.9.6",
+    "ai": "^5.0.93",
     "antd": "^5.29.0",
     "dayjs": "^1.11.19",
+    "localforage": "^1.10.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

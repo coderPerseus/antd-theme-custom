@@ -1,8 +1,8 @@
 import { Outlet } from '@modern-js/runtime/router';
 import { Layout } from 'antd';
-import { ThemeProvider } from '../contexts/ThemeContext';
-import AppHeader from '../components/Header';
 import { useEffect } from 'react';
+import AppHeader from '../components/Header';
+import { ThemeProvider } from '../contexts/ThemeContext';
 import { initializeSampleData } from '../utils/storage';
 
 const { Content } = Layout;
