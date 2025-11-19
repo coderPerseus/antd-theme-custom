@@ -25,22 +25,26 @@ export const blogStorage = {
 
   updatePost: (id: string, updatedPost: Partial<BlogPost>) => {
     const posts = blogStorage.getPosts();
-    const index = posts.findIndex((p) => p.id === id);
+    const index = posts.findIndex(p => p.id === id);
     if (index !== -1) {
-      posts[index] = { ...posts[index], ...updatedPost, updatedAt: new Date().toISOString() };
+      posts[index] = {
+        ...posts[index],
+        ...updatedPost,
+        updatedAt: new Date().toISOString(),
+      };
       blogStorage.savePosts(posts);
     }
   },
 
   deletePost: (id: string) => {
     const posts = blogStorage.getPosts();
-    const filtered = posts.filter((p) => p.id !== id);
+    const filtered = posts.filter(p => p.id !== id);
     blogStorage.savePosts(filtered);
   },
 
   getPostById: (id: string): BlogPost | undefined => {
     const posts = blogStorage.getPosts();
-    return posts.find((p) => p.id === id);
+    return posts.find(p => p.id === id);
   },
 };
 
@@ -72,7 +76,8 @@ export const initializeSampleData = () => {
       {
         id: '1',
         title: '欢迎使用 Antd Theme Blog',
-        content: '这是一个完整的博客管理平台，用于展示 Antd 所有组件在不同主题下的表现。',
+        content:
+          '这是一个完整的博客管理平台，用于展示 Antd 所有组件在不同主题下的表现。',
         summary: '介绍 Antd Theme Blog 平台的功能和特点',
         author: 'Admin',
         tags: ['介绍', 'Antd', '主题'],
@@ -86,7 +91,8 @@ export const initializeSampleData = () => {
       {
         id: '2',
         title: 'Antd 组件库完整体验',
-        content: '本平台集成了 Antd 的所有主要组件，包括表单、表格、导航、反馈等各类组件。',
+        content:
+          '本平台集成了 Antd 的所有主要组件，包括表单、表格、导航、反馈等各类组件。',
         summary: '展示平台中使用的各类 Antd 组件',
         author: 'Admin',
         tags: ['组件', 'UI', 'Antd'],
@@ -100,7 +106,8 @@ export const initializeSampleData = () => {
       {
         id: '3',
         title: '主题切换功能使用指南',
-        content: '点击右上角的主题切换按钮，可以在明亮模式和暗黑模式之间切换，所有组件都会自动适配。',
+        content:
+          '点击右上角的主题切换按钮，可以在明亮模式和暗黑模式之间切换，所有组件都会自动适配。',
         summary: '如何使用主题切换功能',
         author: 'Admin',
         tags: ['主题', '教程'],

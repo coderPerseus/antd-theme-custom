@@ -1,7 +1,8 @@
-import React, { createContext, useContext } from 'react';
-import { ConfigProvider, theme as antdTheme } from 'antd';
 import { useLocalStorageState } from 'ahooks';
+import { ConfigProvider, theme as antdTheme } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
+import type React from 'react';
+import { createContext, useContext } from 'react';
 
 interface ThemeContextType {
   isDark: boolean;
