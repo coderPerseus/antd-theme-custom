@@ -317,7 +317,7 @@ const BlogSettingsPage: React.FC = () => {
               },
               {
                 key: '2',
-                label: '2024年12月',
+                label: '2024 年 12 月',
                 children: <p>暂无历史记录</p>,
               },
             ]}
@@ -407,6 +407,7 @@ const BlogSettingsPage: React.FC = () => {
           <Card title="轮播图">
             <Carousel autoplay>
               {carouselImages.map((img, index) => (
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 <div key={index}>
                   <div
                     style={{
@@ -424,7 +425,7 @@ const BlogSettingsPage: React.FC = () => {
             <Calendar
               fullscreen={false}
               onSelect={date =>
-                message.info(`选择了: ${date.format('YYYY-MM-DD')}`)
+                message.info(`选择了：${date.format('YYYY-MM-DD')}`)
               }
             />
           </Card>
@@ -434,7 +435,7 @@ const BlogSettingsPage: React.FC = () => {
               showIcon
               defaultExpandAll
               treeData={treeData}
-              onSelect={keys => message.info(`选中: ${keys.join(', ')}`)}
+              onSelect={keys => message.info(`选中：${keys.join(', ')}`)}
             />
           </Card>
 

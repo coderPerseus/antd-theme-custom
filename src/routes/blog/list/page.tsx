@@ -38,7 +38,7 @@ import {
 } from 'antd';
 import dayjs from 'dayjs';
 import type React from 'react';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { BlogPost } from '../../../types/blog';
 import { blogStorage } from '../../../utils/storage';
 
@@ -59,6 +59,24 @@ const BlogListPage: React.FC = () => {
   const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs] | null>(
     null,
   );
+
+  // 监听页面可见性，当页面重新可见时刷新数据
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        setPosts(blogStorage.getPosts());
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // 组件挂载时也刷新一次数据
+    setPosts(blogStorage.getPosts());
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [setPosts]);
 
   // 过滤数据
   const filteredPosts = useMemo(() => {
@@ -180,7 +198,6 @@ const BlogListPage: React.FC = () => {
       title: '数据',
       key: 'stats',
       width: 150,
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       render: (_: any, record: BlogPost) => (
         <Space direction="vertical" size="small">
           <div>
@@ -197,7 +214,6 @@ const BlogListPage: React.FC = () => {
       key: 'actions',
       width: 200,
       fixed: 'right' as const,
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       render: (_: any, record: BlogPost) => (
         <Space>
           <Tooltip title="查看">

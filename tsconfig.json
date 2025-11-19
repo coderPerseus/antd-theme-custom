@@ -3,11 +3,13 @@
   "compilerOptions": {
     "declaration": false,
     "jsx": "preserve",
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
       "@shared/*": ["./shared/*"]
-    }
+    },
+    "moduleResolution": "bundler",
+    "ignoreDeprecations": "5.0"
   },
   "include": ["src", "shared", "config", "modern.config.ts"],
   "exclude": ["**/node_modules"]

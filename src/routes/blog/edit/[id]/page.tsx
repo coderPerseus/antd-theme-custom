@@ -218,14 +218,14 @@ const BlogEditPage: React.FC = () => {
                   ((formData.title?.length || 0) / 100) * 100,
                   100,
                 )}
-                format={percent => `标题: ${formData.title?.length || 0}/100`}
+                format={percent => `标题：${formData.title?.length || 0}/100`}
               />
               <Progress
                 percent={Math.min(
                   ((formData.summary?.length || 0) / 200) * 100,
                   100,
                 )}
-                format={percent => `摘要: ${formData.summary?.length || 0}/200`}
+                format={percent => `摘要：${formData.summary?.length || 0}/200`}
                 strokeColor="#52c41a"
               />
             </Form.Item>

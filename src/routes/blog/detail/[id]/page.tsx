@@ -24,7 +24,8 @@ import {
   Typography,
 } from 'antd';
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import type React from 'react';
+import { useEffect, useState } from 'react';
 import type { BlogPost } from '../../../../types/blog';
 import { blogStorage } from '../../../../utils/storage';
 
